@@ -16,7 +16,13 @@ Created with ❤️ by [Konstantin](https://github.com/kkostov).
 
 ## Usage
 
-To create an applink, you will need to include the platform-specific parameters in the URL.
+An applink including all 3 platofrms would look like this:
+
+```
+https://applink.dev/?apple=6444602274&google=org.joinmastodon.android&ms=9ncbcszsjrsb
+```
+
+You need to include the platform-specific parameters in the URL:
 
 - For the App Store, include your [app ID](https://developer.apple.com/documentation/storekit/skstoreproductviewcontroller/1502686-loadwithproductid):
 
@@ -30,11 +36,7 @@ To create an applink, you will need to include the platform-specific parameters 
 
 `ms=app-id`
 
-For example, an applink including all 3 platofrms would look like this:
-
-```
-http://applink.dev/?apple=6444602274&google=org.joinmastodon.android&ms=9ncbcszsjrsb
-```
+The same app ID will be used for all App Store platforms (iOS, macOS...).
 
 ## Platform detection
 
@@ -44,9 +46,11 @@ Currently, the following platforms are supported:
 - Google Play
 - Microsoft Store
 
-Note: We're explicitly only using the user agent to detect the platform. This enables us to respect the user's choice if they have opted to modify the user agent string.
+Detection of the browser and platform of the visitor can be quite tricky (especially if we consider older browsers). For now, detection is done explicitly only using the user agent string. This enables us to respect the user's choice if they have opted to modify the user agent string.
 
-Note: The same app ID will be used for all App Store platforms (iOS, macOS...).
+If the user's platform is unknown, we will display all available app store link with the corresponding badge.
+
+![Screenshot showing all 3 store badges](https://raw.githubusercontent.com/Headbright/applink/main/docs/screenshot-all-badges.png)
 
 ## Roadmap
 
