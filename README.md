@@ -8,6 +8,8 @@ Of course, requesting the page may still expose the visitor's IP address to the 
 
 You're welcome to self-host the page (see below for deployment examples) or use the hosted version at [applink.dev](https://applink.dev).
 
+Created with ❤️ by [Konstantin](https://github.com/kkostov).
+
 ## Usage
 
 To create an applink, you will need to include the platform-specific parameters in the URL.
