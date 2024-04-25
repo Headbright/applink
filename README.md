@@ -1,6 +1,6 @@
 # AppLink.dev
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Headbright/applink/tests?branch=main)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Headbright/applink/tests.yml?branch=main)
 
 A simple, privacy respecting service to create a link that redirects to the App Store, Google Play, or Microsoft Store based on the user's platform.
 
