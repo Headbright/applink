@@ -20,7 +20,7 @@ To create an applink, you will need to include the platform-specific parameters 
 
 - For the App Store, include your [app ID](https://developer.apple.com/documentation/storekit/skstoreproductviewcontroller/1502686-loadwithproductid):
 
-`apple=app-id`
+`apple=1234`
 
 - For Google Play, include your [app package name](https://developer.android.com/distribute/marketing-tools/linking-to-google-play#OpeningDetails):
 
