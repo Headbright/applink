@@ -50,7 +50,7 @@ Detection of the browser and platform of the visitor can be quite tricky (especi
 
 If the user's platform is unknown, we will display all available app store link with the corresponding badge.
 
-![Screenshot showing all 3 store badges](https://raw.githubusercontent.com/Headbright/applink/main/docs/screenshot-all-badges.png)
+![Screenshot showing all 3 store badges](./docs/screenshot-all-badges.png)
 
 ## Roadmap
 
