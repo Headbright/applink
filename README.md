@@ -1,14 +1,16 @@
 # AppLink.dev
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Headbright/applink/tests.yml?branch=main)
+![BSD-3](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg) ![GitHub Actions Workflow Status](https://github.com/Headbright/applink/actions/workflows/tests.yml/badge.svg)
 
 A simple, privacy respecting service to create a link that redirects to the App Store, Google Play, or Microsoft Store based on the user's platform.
 
-The services is designed to execute entirely in the browser, without any server-side processing. This ensures that no data is collected or stored.
+Consider a case where you have an app available on multiple platforms. You want to provide a single link that will redirect the user to the appropriate store based on their platform. AppLink.dev allows you to create such a link.
+
+AppLink.dev is designed to execute entirely in the browser, without any server-side processing. This ensures that no data is collected or stored.
 
 Of course, requesting the page may still expose the visitor's IP address to the server hosting the page.
 
-You're welcome to self-host the page (see below for deployment examples) or use the hosted version at [applink.dev](https://applink.dev).
+You're welcome to self-host the page or use the hosted version at [applink.dev](https://applink.dev). Please note that the hosted version may be taken down at any time.
 
 Created with ❤️ by [Konstantin](https://github.com/kkostov).
 
