@@ -22,8 +22,6 @@ AppLink.dev is designed to execute entirely in the browser, without any server-s
 
 Of course, requesting the page may still expose the visitor's IP address to the server hosting the page.
 
-You're welcome to self-host the page or use the hosted version at [applink.dev](https://applink.dev). Please note that the hosted version may be taken down at any time.
-
 Created with ❤️ by [Konstantin](https://github.com/kkostov).
 
 ## Usage
