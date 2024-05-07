@@ -1,13 +1,13 @@
 // @ts-check
 
 import "./style.css";
-import { detectPlatform } from "./platforms.js";
+import { detectPlatform } from "./src/platforms.js";
 import {
   getAppStoreUrl,
   getConfig,
   getGooglePlayStoreUrl,
   getMicrosoftStoreUrl,
-} from "./config.js";
+} from "./src/config.js";
 
 function renderFallBack(config) {
   let badges = ``;
@@ -53,13 +53,13 @@ if (
   renderFallBack(config);
 } else {
   switch (platform) {
-    case "App Store":
+    case "Apple":
       location.href = `https://apps.apple.com/app/id${config.appleAppId}`;
       break;
-    case "Google Play":
+    case "Google":
       location.href = `https://play.google.com/store/apps/details?id=${config.googlePackageName}`;
       break;
-    case "Microsoft Store":
+    case "Microsoft":
       location.href = `https://www.microsoft.com/store/apps/${config.microsoftStoreId}`;
       break;
     default:

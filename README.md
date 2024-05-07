@@ -16,7 +16,11 @@ Created with ❤️ by [Konstantin](https://github.com/kkostov).
 
 ## Usage
 
-An applink including all 3 platofrms would look like this:
+### Creating a link
+
+Applink supports parsing a URL with parameters to create a link that will redirect the user to the appropriate store based on their platform. This approach is less flexible that using applink targets (see below).
+
+Applink to redirect the user to one of the 3 app stores based on their platform would look like this:
 
 ```
 https://applink.dev/?apple=6444602274&google=org.joinmastodon.android&ms=9ncbcszsjrsb
@@ -37,6 +41,43 @@ You need to include the platform-specific parameters in the URL:
 `ms=app-id`
 
 The same app ID will be used for all App Store platforms (iOS, macOS...).
+
+### Applink Targets
+
+A target is a link to a specific app store.
+
+Applink schemas are JSON-LD objects that can be embedded in your website to define the target (or link) to your app on the appropriate store. This approach is more flexible than using a URL with parameters as it allows the inclusion of parameters to each store link as well support for custom app stores.
+
+Example:
+
+```json
+{
+  "@context": "http://schema.org",
+  "@type": "CreativeWorkSeries",
+  "hasPart": [
+    {
+      "@type": "SoftwareApplication",
+      "provider": {
+        "@type": "Organization",
+        "name": "Apple"
+      },
+      "potentialAction": {
+        "@type": "ViewAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://apps.apple.com/app/id12345"
+        }
+      }
+    }
+  ]
+}
+```
+
+- The schema definition consists of a [CreativeWorkSeries](https://schema.org/CreativeWorkSeries) under which you can define the `hasPart` property for each platform.
+
+- Each target is defined as a [SoftwareApplication](https://schema.org/SoftwareApplication) with the `provider` property set to the vendor's name. Currently, we can distinguish between `Apple`, `Google`, and `Microsoft`. More specific operating system based targeting is [currently in the works](https://github.com/Headbright/applink/issues/1).
+
+- To define a url for this target, add a `potentialAction` property with a [ViewAction](https://schema.org/ViewAction) object that has a `url` property.
 
 ## Platform detection
 

@@ -1,0 +1,34 @@
+{
+  "@context": "http://schema.org",
+  "@type": "CreativeWorkSeries",
+  "hasPart": [
+    {
+      "@type": "SoftwareApplication",
+      "provider": {
+        "@type": "Organization",
+        "name": "Apple"
+      },
+      "potentialAction": {
+        "@type": "ViewAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://apps.apple.com/app/id12345"
+        }
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "provider": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "potentialAction": {
+        "@type": "ViewAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://play.google.com/store/apps/details?id=12345"
+        }
+      }
+    }
+  ]
+}
