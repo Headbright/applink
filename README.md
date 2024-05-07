@@ -16,11 +16,11 @@ Created with ❤️ by [Konstantin](https://github.com/kkostov).
 
 ## Usage
 
-### Creating a link
+### Simple link
 
 Applink supports parsing a URL with parameters to create a link that will redirect the user to the appropriate store based on their platform. This approach is less flexible that using applink targets (see below).
 
-Applink to redirect the user to one of the 3 app stores based on their platform would look like this:
+The following link would redirect a user to their respective app store based on their platform:
 
 ```
 https://applink.dev/?apple=6444602274&google=org.joinmastodon.android&ms=9ncbcszsjrsb
@@ -42,11 +42,11 @@ You need to include the platform-specific parameters in the URL:
 
 The same app ID will be used for all App Store platforms (iOS, macOS...).
 
-### Applink Targets
+### Advanced Appplink Targets
 
-A target is a link to a specific app store.
+A target is a link to a specific app store. A target definition includes one or more filter rules that determine when the target should be used. The filter rules are based on the user's platform, and other properties.
 
-Applink schemas are JSON-LD objects that can be embedded in your website to define the target (or link) to your app on the appropriate store. This approach is more flexible than using a URL with parameters as it allows the inclusion of parameters to each store link as well support for custom app stores.
+Targets are defined as JSON-LD objects that can be embedded in your website. This approach is more flexible than using a URL with parameters as it allows the inclusion of parameters to each store link as well support for custom app stores.
 
 Example:
 
@@ -73,7 +73,7 @@ Example:
 }
 ```
 
-- The schema definition consists of a [CreativeWorkSeries](https://schema.org/CreativeWorkSeries) under which you can define the `hasPart` property for each platform.
+- At the root, define a [CreativeWorkSeries](https://schema.org/CreativeWorkSeries) under which you can define the `hasPart` property for each platform.
 
 - Each target is defined as a [SoftwareApplication](https://schema.org/SoftwareApplication) with the `provider` property set to the vendor's name. Currently, we can distinguish between `Apple`, `Google`, and `Microsoft`. More specific operating system based targeting is [currently in the works](https://github.com/Headbright/applink/issues/1).
 
@@ -83,20 +83,56 @@ Example:
 
 Currently, the following platforms are supported:
 
-- App Store
-- Google Play
-- Microsoft Store
+| User agent platform         | Matching target "provider" | Store           |
+| --------------------------- | -------------------------- | --------------- |
+| Detected Apple device       | Apple                      | App Store       |
+| Detected Google Play device | Google                     | Google Play     |
+| Detected Windows device     | Microsoft                  | Microsoft Store |
+| Unknown device              | Unknown                    | -               |
 
-Detection of the browser and platform of the visitor can be quite tricky (especially if we consider older browsers). For now, detection is done explicitly only using the user agent string. This enables us to respect the user's choice if they have opted to modify the user agent string.
+Using the `provider` field you can add or more instances of `SoftwareApplication` which will be matched from first to last.
 
-If the user's platform is unknown, we will display all available app store link with the corresponding badge.
+ℹ️ Detection of the browser and platform of the visitor can be quite tricky (especially if we consider older browsers). For now, detection is done explicitly only using the user agent string. This enables us to respect the user's choice if they have opted to modify the user agent string.
+
+## Store Badge
+
+For each target, we will display a badge with the store's logo. Each vendor has specific requirements which may evolve over time so we recommend checking their official guidelines. You can define the image to be shown using the `image` property which is of type [ImageObject](https://schema.org/ImageObject).
+
+```json
+{
+  "image": {
+    "@type": "ImageObject",
+    "url": "http://example.com/images/app-store-badge.png",
+    "cssStyle": "width: 150px; height: auto;"
+  }
+}
+```
+
+We support the following fields:
+
+- `url` (required): The URL of the image.
+
+- `cssStyle` (optional): The CSS style to append to the `img` tag (it will be added as an attribute like `<img ... style="..." />`)
+
+- `width` (optional): The width of the image in pixels. If provided, we will add it as an attribute to the `img` tag.
+
+- `height` (optional): The height of the image in pixels. If provided, we will add it as an attribute to the `img` tag.
+
+⚠️ Targets without an image tag are ignored and will not be displayed.
+
+## Fallback
+
+If the user's platform is unknown, or none of the provided targets were a match we will display all available app store links with their corresponding badge.
+
+- In case of a URL with parameters, we will provide some default badges for the App Store, Google Play, and Microsoft Store.
+
+- In case of a schema-based target, we will provide a badge for each `SoftwareApplication` object with a defined `image` property.
 
 ![Screenshot showing all 3 store badges](/docs/screenshot-all-badges.png)
 
 ## Roadmap
 
-- [ ] (in progress) Add support for adding a campaign id to the URL
-- [ ] Add support for more advanced rules for each platform (iOS, macOS, iPadOS, visionOS, tvOS, etc)
+Feel free to check the [currently open issues](https://github.com/Headbright/applink/issues). If you have a suggestion or feature request, please open a new ticket 💜!
 
 ## Stack
 
