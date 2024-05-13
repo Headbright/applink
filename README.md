@@ -42,11 +42,13 @@ The same app ID will be used for all App Store platforms (iOS, macOS...).
 
 Currently, the following platforms are supported:
 
-- App Store
-- Google Play
-- Microsoft Store
+- On Apple devices, applink will redirect to the App Store
+- On Android devices, applink redirects to Google Play
+- On Windows devices, applink redirects to the Microsoft Store
 
 Detection of the browser and platform of the visitor can be quite tricky (especially if we consider older browsers). For now, detection is done explicitly only using the user agent string. This enables us to respect the user's choice if they have opted to modify the user agent string.
+
+### Fallback
 
 If the user's platform is unknown, we will display all available app store link with the corresponding badge.
 
@@ -56,6 +58,7 @@ If the user's platform is unknown, we will display all available app store link 
 
 - [ ] (in progress) Add support for adding a campaign id to the URL
 - [ ] Add support for more advanced rules for each platform (iOS, macOS, iPadOS, visionOS, tvOS, etc)
+- [ ] Research support for Linux, e.g. Flathub
 
 ## Stack
 
