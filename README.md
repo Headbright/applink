@@ -11,7 +11,7 @@ A simple, privacy respecting service to create a link that redirects to the App 
     - [Applink Targets](#applink-targets)
   - [Platform detection](#platform-detection)
   - [Linux and Alternative Stores](#linux-and-alternative-stores)
-  - [Store Badge](#store-badge)
+  - [Audience Detection](#audience-detection)
   - [Fallback platform](#fallback)
 
 ## Why do I need this?
@@ -25,6 +25,15 @@ Of course, requesting the page may still expose the visitor's IP address to the 
 Created with ❤️ by [Konstantin](https://github.com/kkostov).
 
 ## Usage
+
+Create a link to applink.dev and pass the necessary parameters to redirect the user to the appropriate stores.
+
+| Query parameter | Description                                                                 | Configuration   |
+| --------------- | --------------------------------------------------------------------------- | --------------- |
+| `apple`         | The numeric part of App Store app identifier                                | Simple link     |
+| `google`        | The Google Play app package identifier                                      | Simple link     |
+| `ms`            | The Microsoft Store app identifier                                          | Simple link     |
+| `t`             | The complete url to a [Applink target](#applink-targets) configuration file | Applink Targets |
 
 ### Simple link
 
@@ -129,11 +138,11 @@ We strongly recommend that you include a fallback option so that users on unknow
 }
 ```
 
-### Linux and Alternative Stores
+## Linux and Alternative Stores
 
 When using the applink target file definition, you're free to provide a link and badge to alternative stores and platforms. This can be useful for apps that are available on platforms like [F-Droid](https://f-droid.org/en/), [AltStore](https://altstore.io) and others.
 
-To do so, use the `provider` field to match against one of the known platform values (e.g. Apple, Microsoft etc) and then provide a `potentialAction` and `image` appropriate for the store you're linking to.
+To do so, use the `provider` field to match against one of the known platform values (e.g. Apple, Microsoft etc) and then provide a `potentialAction` for the store you're linking to.
 
 ```json
 {
@@ -152,18 +161,35 @@ To do so, use the `provider` field to match against one of the known platform va
           "@type": "EntryPoint",
           "urlTemplate": "https://f-droid.org/packages/org.joinmastodon.android/"
         }
-      },
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://f-droid.org/badge/get-it-on.png",
-        "cssStyle": "width: 150px; height: auto;"
       }
     }
   ]
 }
 ```
 
-### Fallback
+## Audience detection
+
+Our goal is to offer a simple and privacy protecting way of identifying the best store for the user. To achieve this, only client side information is used. There is no third party tracking, data collection or geolocation of any kind.
+
+### Visitors from the European Union
+
+In some cases, it may be required to know the country from which the user is accessing the link (e.g. in order to offer an alternative app store). You can define an app target specific to the European Union by using the `audience` property:
+
+```json
+{
+  "audience": {
+    "@type": "Audience",
+    "geographicArea": {
+      "@type": "Place",
+      "name": "European Union"
+    }
+  }
+}
+```
+
+We determine the user's location based on their Timezone [as reported by the browser](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat). This is not 100% accurate, but it should be good enough for most cases.
+
+## Fallback
 
 _For Applink target_
 
@@ -175,37 +201,7 @@ _For simple link_
 
 If the user's platform is unknown, or none of the provided targets were a match we will display all available app store links with their corresponding badge.
 
-- In case of a URL with parameters, we will provide some default badges for the App Store, Google Play, and Microsoft Store.
-
-- In case of a schema-based target, we will provide a badge for each `SoftwareApplication` object with a defined `image` property.
-
 ![Screenshot showing all 3 store badges](/docs/screenshot-all-badges.png)
-
-## Store Badge
-
-For each target, we will display a badge with the store's logo. Each vendor has specific requirements which may evolve over time so we recommend checking their official guidelines. You can define the image to be shown using the `image` property which is of type [ImageObject](https://schema.org/ImageObject).
-
-```json
-{
-  "image": {
-    "@type": "ImageObject",
-    "url": "http://example.com/images/app-store-badge.png",
-    "cssStyle": "width: 150px; height: auto;"
-  }
-}
-```
-
-We support the following fields:
-
-- `url` (required): The URL of the image.
-
-- `cssStyle` (optional): The CSS style to append to the `img` tag (it will be added as an attribute like `<img ... style="..." />`)
-
-- `width` (optional): The width of the image in pixels. If provided, we will add it as an attribute to the `img` tag.
-
-- `height` (optional): The height of the image in pixels. If provided, we will add it as an attribute to the `img` tag.
-
-⚠️ Targets without an image tag are ignored and will not be displayed.
 
 ## Roadmap
 
