@@ -58,6 +58,12 @@ A target is a link to a specific app store. A target definition includes one or 
 
 Targets are defined as JSON-LD objects that can be embedded on your website. This approach is more flexible than using [Simple link](#simple-link) as it allows the inclusion of query parameters to each store link as well support for custom app stores.
 
+You can pass the domain where we can find the applink target file as a query parameter:
+
+```
+https://applink.dev/?t=https://example.com/applink
+```
+
 Example:
 
 ```json
@@ -222,3 +228,7 @@ Type checking is done using JSDoc and TypeScript checks are enabled using `// @t
 ## Deployment
 
 As a static page, you can deploy this to any static hosting provider as described in the [Vite documentation](https://vitejs.dev/guide/static-deploy.html).
+
+## GitHub Pages
+
+As we also use GitHubPage for hosting, we have a GitHub Action that builds the project and deploys it. You can find the workflow in `.github/workflows/deploy.yml`.

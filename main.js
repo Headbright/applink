@@ -5,6 +5,7 @@ import { detectPlatform } from "./src/platforms.js";
 import {
   getAppStoreUrl,
   getConfig,
+  getRemoteConfigUrl,
   getGooglePlayStoreUrl,
   getMicrosoftStoreUrl,
 } from "./src/config.js";
@@ -44,28 +45,67 @@ function renderFallBack(config) {
     `;
 }
 
-const platform = detectPlatform(navigator.userAgent);
-const config = getConfig(location.href);
+const executeRedirect = async () => {
+  // detect platform
+  const platform = detectPlatform(navigator.userAgent);
 
-if (
-  !config.appleAppId &&
-  !config.googlePackageName &&
-  !config.microsoftStoreId
-) {
-  renderFallBack(config);
-} else {
-  switch (platform) {
-    case "Apple":
-      location.href = `https://apps.apple.com/app/id${config.appleAppId}`;
-      break;
-    case "Google":
-      location.href = `https://play.google.com/store/apps/details?id=${config.googlePackageName}`;
-      break;
-    case "Microsoft":
-      location.href = `https://www.microsoft.com/store/apps/${config.microsoftStoreId}`;
-      break;
-    default:
+  // determine configuration type
+  const remoteUrl = getRemoteConfigUrl(location.href);
+  if (remoteUrl) {
+    const remoteConfig = await getRemoteConfig(remoteUrl);
+    switch (platform) {
+      case "Apple":
+        if (remoteConfig.urlApple) {
+          location.href = remoteConfig.urlApple;
+        } else {
+          renderFallBack({});
+        }
+        break;
+      case "Google":
+        if (remoteConfig.urlGoogle) {
+          location.href = remoteConfig.urlGoogle;
+        } else {
+          renderFallBack({});
+        }
+        break;
+      case "Microsoft":
+        if (remoteConfig.urlMicrosoft) {
+          location.href = remoteConfig.urlMicrosoft;
+        } else {
+          renderFallBack({});
+        }
+        break;
+      default:
+        renderFallBack({});
+        break;
+    }
+  } else {
+    // simple link
+    const config = getConfig(location.href);
+
+    if (
+      !config.appleAppId &&
+      !config.googlePackageName &&
+      !config.microsoftStoreId
+    ) {
       renderFallBack(config);
-      break;
+    } else {
+      switch (platform) {
+        case "Apple":
+          location.href = `https://apps.apple.com/app/id${config.appleAppId}`;
+          break;
+        case "Google":
+          location.href = `https://play.google.com/store/apps/details?id=${config.googlePackageName}`;
+          break;
+        case "Microsoft":
+          location.href = `https://www.microsoft.com/store/apps/${config.microsoftStoreId}`;
+          break;
+        default:
+          renderFallBack(config);
+          break;
+      }
+    }
   }
-}
+};
+
+executeRedirect();
