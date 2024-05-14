@@ -210,7 +210,7 @@ If you prefer to self-host it as a static page, you're welcome to clone/fork and
 
 ### GitHub Pages
 
-As we also use GitHubPage for hosting, we have a GitHub Action that builds the project and deploys it. You can find the workflow in `.github/workflows/deploy.yml`.
+As we also use GitHub pages for hosting, there is a GitHub Action that builds the project and deploys it. You can find the workflow in `.github/workflows/deploy.yml`.
 
 ## License
 
