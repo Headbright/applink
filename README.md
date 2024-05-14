@@ -6,13 +6,17 @@ A simple, privacy respecting service to create a link that redirects to the App 
 
 - [AppLink.dev](#applinkdev)
   - [Why do I need this?](#why-do-i-need-this)
-  - [Usage](#how-it-works)
+  - [Usage](#usage)
     - [Simple link](#simple-link)
     - [Applink Targets](#applink-targets)
   - [Platform detection](#platform-detection)
   - [Linux and Alternative Stores](#linux-and-alternative-stores)
   - [Audience Detection](#audience-detection)
   - [Fallback platform](#fallback)
+  - [Roadmap](#roadmap)
+  - [Stack](#stack)
+  - [Deployment](#deployment)
+  - [License](#license)
 
 ## Why do I need this?
 
@@ -200,13 +204,15 @@ Type checking is done using JSDoc and TypeScript checks are enabled using `// @t
 
 ## Deployment
 
-As a static page, you can deploy this to any static hosting provider as described in the [Vite documentation](https://vitejs.dev/guide/static-deploy.html).
+applink.dev is hosted as a GitHub page and publicly available for anyone to use for free. Just follow the above guidelines to create the necessary query parameters.
 
-## GitHub Pages
+If you prefer to self-host it as a static page, you're welcome to clone/fork and deploy this to any static hosting provider as described in the [Vite documentation](https://vitejs.dev/guide/static-deploy.html).
+
+### GitHub Pages
 
 As we also use GitHubPage for hosting, we have a GitHub Action that builds the project and deploys it. You can find the workflow in `.github/workflows/deploy.yml`.
 
-## Lincense
+## License
 
 This project is licensed under the BSD-3-Clause license. For more information, please refer to the [LICENSE](LICENSE) file.
 
