@@ -9,6 +9,8 @@ import {
   getMicrosoftStoreUrl,
 } from "./src/config.js";
 
+import { getRemoteConfig } from "./src/remoteConfig.js";
+
 function renderFallBack(config) {
   let badges = ``;
   const appStoreUrl = getAppStoreUrl(config);

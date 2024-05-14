@@ -28,7 +28,7 @@ Created with ❤️ by [Konstantin](https://github.com/kkostov).
 
 ### Simple link
 
-Applink supports parsing a URL with parameters to create a link that will redirect the user to the appropriate store based on their platform. This approach is less flexible that using applink targets (see below).
+Applink supports parsing a URL with parameters to create a link that will redirect the user to the appropriate store based on their platform. This approach is less flexible that using [Applink Targets](#applink-targets).
 
 The following link would redirect a user to their respective app store based on their platform:
 
@@ -54,9 +54,9 @@ The same app ID will be used for all App Store platforms (iOS, macOS...).
 
 ### Applink Targets
 
-A target is a link to a specific app store. A target definition includes one or more filter rules that determine when the target should be used. The filter rules are based on the user's platform, and other properties.
+A target is a link to a specific app store. A target definition includes one or more filter rules that determine which target should be used. The filter rules are based on the user's platform.
 
-Targets are defined as JSON-LD objects that can be embedded in your website. This approach is more flexible than using a URL with parameters as it allows the inclusion of parameters to each store link as well support for custom app stores.
+Targets are defined as JSON-LD objects that can be embedded on your website. This approach is more flexible than using [Simple link](#simple-link) as it allows the inclusion of query parameters to each store link as well support for custom app stores.
 
 Example:
 
@@ -83,9 +83,9 @@ Example:
 }
 ```
 
-- At the root, define a [CreativeWorkSeries](https://schema.org/CreativeWorkSeries) under which you can define the `hasPart` property for each platform.
+- At the root, define a [CreativeWorkSeries](https://schema.org/CreativeWorkSeries) under which you can define the `hasPart` property for each target.
 
-- Each target is defined as a [SoftwareApplication](https://schema.org/SoftwareApplication) with the `provider` property set to the vendor's name. Currently, we can distinguish between `Apple`, `Google`, and `Microsoft`. More specific operating system based targeting is [currently in the works](https://github.com/Headbright/applink/issues/1).
+- Each target is defined as a [SoftwareApplication](https://schema.org/SoftwareApplication) with the `provider` property set to the vendor's name. Currently, we can distinguish between `Apple`, `Google`, and `Microsoft`. More granular targeting based on the user's system are [currently in the works](https://github.com/Headbright/applink/issues/1).
 
 - To define a url for this target, add a `potentialAction` property with a [ViewAction](https://schema.org/ViewAction) object that has a `url` property.
 
@@ -103,6 +103,25 @@ Currently, the following platforms are supported:
 Using the `provider` field you can add or more instances of `SoftwareApplication` which will be matched from first to last.
 
 ℹ️ Detection of the browser and platform of the visitor can be quite tricky (especially if we consider older browsers). For now, detection is done explicitly only using the user agent string. This enables us to respect the user's choice if they have opted to modify the user agent string.
+
+We strongly recommend that you include a fallback option so that users on unknown platforms are not left without a clear indication of what to do next.
+
+```json
+{
+  "@type": "SoftwareApplication",
+  "provider": {
+    "@type": "Organization",
+    "name": "Unknown"
+  },
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://example.org"
+    }
+  }
+}
+```
 
 ### Linux and Alternative Stores
 
