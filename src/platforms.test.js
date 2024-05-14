@@ -36,7 +36,7 @@ const unknownAgents = [
 
 test.each(
   appStoreAgents.map((ua) => {
-    return { ua: ua, expected: "App Store" };
+    return { ua: ua, expected: "Apple" };
   })
 )("detectPlatform($ua) -> $expected", ({ ua, expected }) => {
   expect(detectPlatform(ua)).toBe(expected);
@@ -44,7 +44,7 @@ test.each(
 
 test.each(
   googlePlayAgents.map((ua) => {
-    return { ua: ua, expected: "Google Play" };
+    return { ua: ua, expected: "Google" };
   })
 )("detectPlatform($ua) -> $expected", ({ ua, expected }) => {
   expect(detectPlatform(ua)).toBe(expected);
@@ -52,7 +52,7 @@ test.each(
 
 test.each(
   windowsAgents.map((ua) => {
-    return { ua: ua, expected: "Microsoft Store" };
+    return { ua: ua, expected: "Microsoft" };
   })
 )("detectPlatform($ua) -> $expected", ({ ua, expected }) => {
   expect(detectPlatform(ua)).toBe(expected);

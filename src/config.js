@@ -1,5 +1,18 @@
 // @ts-check
 
+export function getRemoteConfigUrl(requestUrl) {
+  // determine if there is a t parameter in the URL
+  try {
+    const url = new URL(requestUrl);
+    const searchParams = url.searchParams;
+    const remoteConfigUrl = searchParams.get("t");
+    return remoteConfigUrl;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export function getConfig(requestUrl) {
   try {
     const url = new URL(requestUrl);

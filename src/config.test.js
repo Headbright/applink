@@ -1,5 +1,24 @@
 import { expect, test } from "vitest";
-import { getConfig } from "./config";
+import { getConfig, getRemoteConfigUrl } from "./config";
+
+test("getRemoteConfigUrl('https://example.com?t=https://example.org')", () => {
+  const result = getRemoteConfigUrl(
+    "https://example.com?t=https://example.org"
+  );
+  expect(result).toBe("https://example.org");
+});
+
+test("getRemoteConfigUrl('https://example.com')", () => {
+  const result = getRemoteConfigUrl("https://example.com");
+  expect(result).toBeNull();
+});
+
+test("getRemoteConfigUrl('https://example.com?apple=123&google=456&ms=789')", () => {
+  const result = getRemoteConfigUrl(
+    "https://example.com?apple=123&google=456&ms=789"
+  );
+  expect(result).toBeNull();
+});
 
 test("getConfig('https://example.com?apple=123&google=456&ms=789')", () => {
   const result = getConfig("https://example.com?apple=123&google=456&ms=789");

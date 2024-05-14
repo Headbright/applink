@@ -23,11 +23,11 @@ function platformWindowsStore(userAgent) {
 
 export function detectPlatform(userAgent) {
   if (platformAppStore(userAgent)) {
-    return "App Store";
+    return "Apple";
   } else if (platformGooglePlay(userAgent)) {
-    return "Google Play";
+    return "Google";
   } else if (platformWindowsStore(userAgent)) {
-    return "Microsoft Store";
+    return "Microsoft";
   }
 
   return "Unknown";
