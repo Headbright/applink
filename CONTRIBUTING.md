@@ -2,10 +2,6 @@
 
 Feel free to open an issue in order to discuss any thoughts, comments, questions and suggestions that you might have.
 
-## Answer issues and contribute to discussions
-
-Reviewing issues and merged pull requests is a great way to help, get familiar with the library, and shape its direction.
-
 ## Code contributions
 
 - Clone the `main` branch on your machine.
