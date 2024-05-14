@@ -1,6 +1,6 @@
 # AppLink.dev
 
-![BSD-3](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg) ![GitHub Actions Workflow Status](https://github.com/kkostov/applink/actions/workflows/tests.yml/badge.svg)
+![BSD-3](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg) ![GitHub Actions Workflow Status](https://github.com/Headbright/applink/actions/workflows/tests.yml/badge.svg)
 
 A simple, privacy respecting service to create a link that redirects to the App Store, Google Play, or Microsoft Store based on the user's platform.
 
@@ -22,7 +22,7 @@ AppLink.dev is designed to execute entirely in the browser, without any server-s
 
 Of course, requesting the page may still expose the visitor's IP address to the server hosting the page.
 
-Created with ❤️ by [Konstantin](https://github.com/kkostov).
+Created with ❤️ by [Konstantin](https://github.com/Headbright).
 
 ## Usage
 
@@ -100,7 +100,7 @@ Example:
 
 - At the root, define a [CreativeWorkSeries](https://schema.org/CreativeWorkSeries) under which you can define the `hasPart` property for each target.
 
-- Each target is defined as a [SoftwareApplication](https://schema.org/SoftwareApplication) with the `provider` property set to the vendor's name. Currently, we can distinguish between `Apple`, `Google`, and `Microsoft`. More granular targeting based on the user's system are [currently in the works](https://github.com/kkostov/applink/issues/1).
+- Each target is defined as a [SoftwareApplication](https://schema.org/SoftwareApplication) with the `provider` property set to the vendor's name. Currently, we can distinguish between `Apple`, `Google`, and `Microsoft`. More granular targeting based on the user's system are [currently in the works](https://github.com/Headbright/applink/issues/1).
 
 - To define a url for this target, add a `potentialAction` property with a [ViewAction](https://schema.org/ViewAction) object that has a `url` property.
 
@@ -182,7 +182,7 @@ If the user's platform is unknown, or none of the provided targets were a match 
 
 ## Roadmap
 
-Feel free to check the [currently open issues](https://github.com/kkostov/applink/issues). If you have a suggestion or feature request, please open a new ticket 💜!
+Feel free to check the [currently open issues](https://github.com/Headbright/applink/issues). If you have a suggestion or feature request, please open a new ticket 💜!
 
 ## Stack
 
