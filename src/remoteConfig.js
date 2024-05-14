@@ -1,7 +1,5 @@
 // @ts-check
 
-// Intl.DateTimeFormat().resolvedOptions().timeZone
-
 export async function resolveAndParseRemoteConfigToUrl(
   configRemoteUrl,
   platform,
@@ -69,7 +67,6 @@ export function parseRemoteConfig(configJson, platform, tz) {
       const matchingConfig = geographicAreaPlace.filter((target) => {
         return target["audience"]["geographicArea"]["name"] === place;
       })[0];
-      console.log("match", matchingConfig);
 
       const url = matchingConfig["potentialAction"]["target"]["urlTemplate"];
       if (url) {
@@ -79,7 +76,6 @@ export function parseRemoteConfig(configJson, platform, tz) {
   }
 
   // if we're here, it's a match on platform
-  console.log("fallback:", targets[0]);
   return targets[0]["potentialAction"]["target"]["urlTemplate"];
 }
 

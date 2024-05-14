@@ -10,7 +10,7 @@ import {
   getMicrosoftStoreUrl,
 } from "./src/config.js";
 
-import { getRemoteConfig } from "./src/remoteConfig.js";
+import { resolveAndParseRemoteConfigToUrl } from "./src/remoteConfig.js";
 
 function renderFallBack(config) {
   let badges = ``;
@@ -52,32 +52,15 @@ const executeRedirect = async () => {
   // determine configuration type
   const remoteUrl = getRemoteConfigUrl(location.href);
   if (remoteUrl) {
-    const remoteConfig = await getRemoteConfig(remoteUrl);
-    switch (platform) {
-      case "Apple":
-        if (remoteConfig.urlApple) {
-          location.href = remoteConfig.urlApple;
-        } else {
-          renderFallBack({});
-        }
-        break;
-      case "Google":
-        if (remoteConfig.urlGoogle) {
-          location.href = remoteConfig.urlGoogle;
-        } else {
-          renderFallBack({});
-        }
-        break;
-      case "Microsoft":
-        if (remoteConfig.urlMicrosoft) {
-          location.href = remoteConfig.urlMicrosoft;
-        } else {
-          renderFallBack({});
-        }
-        break;
-      default:
-        renderFallBack({});
-        break;
+    const targetUrl = await resolveAndParseRemoteConfigToUrl(
+      remoteUrl,
+      platform,
+      Intl.DateTimeFormat().resolvedOptions().timeZone
+    );
+    if (targetUrl) {
+      location.href = targetUrl;
+    } else {
+      renderFallBack({});
     }
   } else {
     // simple link
