@@ -138,35 +138,6 @@ We strongly recommend that you include a fallback option so that users on unknow
 }
 ```
 
-## Linux and Alternative Stores
-
-When using the applink target file definition, you're free to provide a link and badge to alternative stores and platforms. This can be useful for apps that are available on platforms like [F-Droid](https://f-droid.org/en/), [AltStore](https://altstore.io) and others.
-
-To do so, use the `provider` field to match against one of the known platform values (e.g. Apple, Microsoft etc) and then provide a `potentialAction` for the store you're linking to.
-
-```json
-{
-  "@context": "http://schema.org",
-  "@type": "CreativeWorkSeries",
-  "hasPart": [
-    {
-      "@type": "SoftwareApplication",
-      "provider": {
-        "@type": "Organization",
-        "name": "F-Droid"
-      },
-      "potentialAction": {
-        "@type": "ViewAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://f-droid.org/packages/org.joinmastodon.android/"
-        }
-      }
-    }
-  ]
-}
-```
-
 ## Audience detection
 
 Our goal is to offer a simple and privacy protecting way of identifying the best store for the user. To achieve this, only client side information is used. There is no third party tracking, data collection or geolocation of any kind.
@@ -189,13 +160,19 @@ In some cases, it may be required to know the country from which the user is acc
 
 We determine the user's location based on their Timezone [as reported by the browser](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat). This is not 100% accurate, but it should be good enough for most cases.
 
+## Linux and Alternative Stores
+
+When using the applink target file definition, you're free to provide a link to alternative stores and platforms. This can be useful for apps that are available on platforms like [F-Droid](https://f-droid.org/en/), [AltStore](https://altstore.io) and others.
+
+To do so, use the `provider` and `audience` fields to offer a `potentialAction` for the store you're linking to.
+
+Please note that the name of the provider organization must always be one of the supported values listed above.
+
 ## Fallback
 
 _For Applink target_
 
-If the user's platform is unknown, or none of the provided targets were a match we will display all available app store links with their corresponding badge.
-
-If no targets are defined, we will display an error message. Please try to avoid this scenario as it will leave users without a clear indication of what to do next.
+If the user's platform is unknown, or none of the provided targets were a match we will display an error message. Please try to avoid this scenario by defining "Unknown" target. Otherwise it will leave users without a clear indication of what to do next.
 
 _For simple link_
 
